@@ -24,9 +24,10 @@ class Land private constructor(val spots: List<Spot>, val land: LandSize) {
                 List(landSize) { index ->
                     val y = index / land.width
                     val x = index % land.width
-                    when (mines.contains(y * land.width + x)) {
-                        true -> MineSpot(Point(x, y))
-                        false -> DefaultSpot(Point(x, y), MineData(land, mines))
+                    if (mines.contains(y * land.width + x)) {
+                        MineSpot(Point(x, y))
+                    } else {
+                        DefaultSpot(Point(x, y), MinesMap(land, mines))
                     }
                 }
 
