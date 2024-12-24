@@ -1,5 +1,7 @@
 package minesweeper.view
 
+import minesweeper.domain.land.Point
+
 object InputView {
     fun inputHeight(): Int {
         println("높이를 입력하세요.")
@@ -21,4 +23,17 @@ object InputView {
         check(mineCount > 0) { "지뢰는 한개 이상 입력해주세요" }
         return mineCount
     }
+
+    fun inputOpenSpot(): Point {
+        print("open: ")
+        val input = readln()
+            .replace(" ", "")
+            .split(",")
+            .map {
+                it.toInt()
+            }
+
+        return Point(input[0], input[1])
+    }
+
 }

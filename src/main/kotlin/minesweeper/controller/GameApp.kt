@@ -2,10 +2,22 @@ package minesweeper.controller
 
 import minesweeper.domain.land.Land
 import minesweeper.domain.land.LandSize
+import minesweeper.domain.state.GameState
 import minesweeper.view.InputView
 import minesweeper.view.ResultView
 
 class GameApp(val land: Land) {
+    private var gameOver = GameState.Doing
+    fun startGame() {
+        ResultView.startGame()
+
+        while (gameOver == GameState.Doing) {
+            val point = InputView.inputOpenSpot()
+            gameOver = land.revealSpots(point)
+            ResultView.showLand(land)
+        }
+    }
+
     companion object {
         fun generateMines(
             total: Int,
@@ -29,7 +41,6 @@ fun main() {
                 GameApp::generateMines,
             ),
         )
+    game.startGame()
 
-    val land = game.land
-    ResultView.showLand(land)
 }

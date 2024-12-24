@@ -4,8 +4,11 @@ import minesweeper.domain.land.Land
 import minesweeper.domain.spot.Spot
 
 object ResultView {
-    fun showLand(land: Land) {
+    fun startGame() {
         println("지뢰찾기 게임 시작")
+    }
+
+    fun showLand(land: Land) {
         val height = land.land.height
         for (n in 0..<height) {
             println(land.getLines(n).toShowString())
