@@ -5,11 +5,13 @@ data class MinesMap(val landSize: LandSize, val mines: List<Int>) {
         val yRange = upperSpot(point.y)..lowerSpot(point.y)
         val xRange = leftSpot(point.x)..rightSpot(point.x)
 
-        val surroundIndexes = yRange.flatMap {
-            y -> xRange.map {
-                x -> (y * landSize.width + x)
+        val surroundIndexes =
+            yRange.flatMap { y ->
+                xRange.map {
+                        x ->
+                    (y * landSize.width + x)
+                }
             }
-        }
 
         return surroundIndexes.count {
             mines.contains(it)

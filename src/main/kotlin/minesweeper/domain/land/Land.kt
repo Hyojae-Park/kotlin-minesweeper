@@ -22,13 +22,12 @@ class Land private constructor(val spots: List<Spot>, val land: LandSize) {
             val mines = generateMines.invoke(landSize, mineCount)
             val spots =
                 List(landSize) { index ->
-                    val y = index / land.width
-                    val x = index % land.width
-                    if (mines.contains(y * land.width + x)) {
-                        MineSpot(Point(x, y))
-                    } else {
-                        DefaultSpot(Point(x, y), MinesMap(land, mines))
-                    }
+                    val point = Point.indexToPoint(index, land.width)
+                    mines.takeIf {
+                        it.contains(index)
+                    }?.let {
+                        MineSpot(point)
+                    } ?: DefaultSpot(point, MinesMap(land, mines))
                 }
 
             return Land(spots, land)
